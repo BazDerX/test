@@ -1,0 +1,13 @@
+{
+  "sam2": {
+    "source": "https://github.com/facebookresearch/sam2",
+    "revision": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_tiny.pt",
+    "checkpoint_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69",
+    "config": "configs/sam2.1/sam2.1_hiera_t.yaml",
+    "license": "Apache-2.0"
+  },
+  "base": {"repo": "stabilityai/stable-diffusion-xl-base-1.0", "revision": "462165984030d82259a11f4367a4eed129e94a7b", "directory": "sdxl-base", "license": "CreativeML Open RAIL++-M"},
+  "controlnet": {"repo": "diffusers/controlnet-canny-sdxl-1.0", "revision": "eb115a19a10d14909256db740ed109532ab1483c", "directory": "controlnet-canny-sdxl", "license": "Open RAIL++"},
+  "inpainting": {"repo": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1", "revision": "115134f363124c53c7d878647567d04daf26e41e", "directory": "sdxl-inpainting", "license": "CreativeML Open RAIL++-M"}
+}

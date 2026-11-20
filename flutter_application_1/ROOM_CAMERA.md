@@ -1,0 +1,15 @@
+# Room camera and photo import
+
+Home's design button opens `RoomInputScreen`. Users can capture a photo with the rear camera or pick one with the system gallery. Both paths validate the image contents, copy the file into the private application-support `room_images` directory on native platforms, and open `RoomPhotoPreviewScreen`. Retake and replace update the current selection; cancelling keeps the existing image. Continue opens room confirmation, style selection and the AI editor with the same photo. See [the backend workflow documentation](backend/README.md).
+
+`RoomImageService.current` holds the selected bytes and saved path for the current app session. Removing a selection clears this state; it does not delete saved files. AI drafts additionally persist settings and image references, and saved AI projects use the backend's SQLite store. Camera/gallery selection itself does not upload images. Entering the AI editor sends the selected photo to the explicitly configured backend, with a notice in the UI. Web drafts are subject to browser storage quota.
+
+The official camera controller requests camera access with audio disabled. The Android manifest removes the camera library's audio and legacy storage permissions. Gallery selection uses the system picker without broad storage access or full metadata. Android interrupted-picker results are recovered when the input screen opens again.
+
+The camera controller is released on backgrounding, before gallery selection, and on leaving the camera screen. Initialization and disposal are serialized; stale initialization results are discarded. Flash modes are attempted through the camera plugin and unsupported modes produce a Mongolian message. Still-photo capture is not a 3D room scan. `RoomScanningService` provides an interface for a future reconstruction engine; its unavailable adapter reports unsupported functionality.
+
+Dependencies are pinned through `pubspec.lock`. These plugin versions require Android API 24 or newer; the existing iOS deployment target is 15.0. The iOS usage descriptions cover camera and photo-library access; microphone access is not used.
+
+Run `flutter pub get`, `flutter analyze`, and `flutter test`. Tests cover corrupt-file rejection, cancellation, private file storage, navigation, capture through a mocked camera platform, lifecycle disposal/resume, flash failures, permission denial, and small layouts. They do not replace hardware testing. On a physical Android/iOS device, verify permission denial and Settings recovery, rear-camera rotation, capture/retake, gallery cancellation, JPG/PNG/HEIC availability, background/resume, and flash behavior. HEIC decoding depends on the device codec.
+
+An optional rendered layout can be generated with `flutter test test/room_layout_test.dart --update-goldens --dart-define=ROOM_SCREENSHOTS=true --dart-define=FLUTTER_FONT_DIR=<Flutter SDK>/bin/cache/artifacts/material_fonts`. It writes `build/room_input_preview.png` using SDK fonts and the extracted room photograph.

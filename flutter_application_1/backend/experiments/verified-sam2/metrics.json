@@ -1,0 +1,16 @@
+{
+  "source_sha256": "865ab3326751a5cd4f6e41377b33e98e1c99151a5a301291f70b3f6097708e96",
+  "size": [
+    340,
+    216
+  ],
+  "seed": 42,
+  "pretrained_not_trained_from_scratch": true,
+  "segmentation_seconds": 5.860215799999423,
+  "sam_score": 0.9512746334075928,
+  "selected_pixels": 1747,
+  "point": [
+    180.0,
+    145.0
+  ]
+}
